@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Radar Okazji OLX</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Warszawa i okolice</p>
+          <h1>Radar Okazji OLX</h1>
+        </div>
+        <div class="status-pill" id="connectionStatus">
+          <span class="pulse"></span>
+          Gotowy
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="filters-panel" aria-label="Filtry wyszukiwania">
+          <form id="filtersForm">
+            <label>
+              Marka
+              <select id="brand" name="brand">
+                <option value="">Wszystkie marki</option>
+              </select>
+            </label>
+
+            <div class="split">
+              <label>
+                Rok od
+                <input id="yearFrom" name="yearFrom" type="number" min="1970" max="2030" placeholder="2012" />
+              </label>
+              <label>
+                Rok do
+                <input id="yearTo" name="yearTo" type="number" min="1970" max="2030" placeholder="2022" />
+              </label>
+            </div>
+
+            <div class="split">
+              <label>
+                Cena od
+                <input id="priceFrom" name="priceFrom" type="number" min="0" step="500" placeholder="10000" />
+              </label>
+              <label>
+                Cena do
+                <input id="priceTo" name="priceTo" type="number" min="0" step="500" placeholder="90000" />
+              </label>
+            </div>
+
+            <label>
+              Promień
+              <select id="radius" name="radius">
+                <option value="0">Warszawa</option>
+                <option value="10">+10 km</option>
+                <option value="25">+25 km</option>
+                <option value="50">+50 km</option>
+              </select>
+            </label>
+
+            <label>
+              Próg okazji: <strong id="discountValue">12%</strong>
+              <input id="discount" name="discount" type="range" min="5" max="30" value="12" />
+            </label>
+
+            <div class="toggle-row">
+              <input id="fresh" name="fresh" type="checkbox" checked />
+              <label for="fresh">Tylko dzisiejsze / świeżo odświeżone</label>
+            </div>
+
+            <button class="primary-button" type="submit">
+              <span aria-hidden="true">⌕</span>
+              Analizuj
+            </button>
+          </form>
+        </aside>
+
+        <section class="results-area" aria-live="polite">
+          <div class="summary-strip" id="summary">
+            <div>
+              <span class="metric" id="dealCount">0</span>
+              <span class="metric-label">okazji</span>
+            </div>
+            <div>
+              <span class="metric" id="listingCount">0</span>
+              <span class="metric-label">ogłoszeń</span>
+            </div>
+            <div>
+              <span class="metric" id="lastScan">--:--</span>
+              <span class="metric-label">skan</span>
+            </div>
+          </div>
+
+          <div class="notice" id="notice">
+            Wybierz filtry i uruchom analizę.
+          </div>
+
+          <div class="deal-grid" id="dealGrid"></div>
+        </section>
+      </section>
+    </main>
+
+    <template id="dealTemplate">
+      <article class="deal-card">
+        <a class="image-link" target="_blank" rel="noreferrer">
+          <img alt="" loading="lazy" />
+          <span class="score-badge"></span>
+        </a>
+        <div class="deal-content">
+          <div class="deal-heading">
+            <h2></h2>
+            <span class="discount"></span>
+          </div>
+          <div class="price-row">
+            <strong class="price"></strong>
+            <span class="market"></span>
+          </div>
+          <dl class="specs">
+            <div>
+              <dt>Rok</dt>
+              <dd class="year"></dd>
+            </div>
+            <div>
+              <dt>Przebieg</dt>
+              <dd class="mileage"></dd>
+            </div>
+            <div>
+              <dt>Porównanie</dt>
+              <dd class="comparable"></dd>
+            </div>
+          </dl>
+          <p class="meta"></p>
+          <div class="flags"></div>
+          <a class="open-link" target="_blank" rel="noreferrer">
+            <span aria-hidden="true">↗</span>
+            Otwórz ogłoszenie
+          </a>
+        </div>
+      </article>
+    </template>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
